@@ -3,24 +3,29 @@
 game::game(){
 	m1.setCoins();
 	m1.setHurdles();
-	m1.setLion();
 	m1.setPlayer();
-	m1.setSword();
+	m1.setLife();
 }
 
 void game::run() {
+	m1.hideCursor();
+	m1.gotoxy(0, 0);
 	m1.printBox();
+	p1.printLives();
+	p1.printScore();
+	bool checkMove = false;
 	char w = ' ';
 	while (true)
 	{
 		w=p1.Input();
-		switch (w)
+		checkMove = m1.move(w);
+		if (checkMove)
 		{
-		case 'w': {
-
-		}
-		default:
-			break;
+			m1.gotoxy(0, 0);
+			m1.printBox();
+			p1.printLives();
+			p1.printScore();
+			Sleep(50);
 		}
 	}
 }

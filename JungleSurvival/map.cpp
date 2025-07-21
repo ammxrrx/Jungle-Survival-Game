@@ -1,5 +1,23 @@
 #include "JungleSurvival.h"
 
+//shit aah functions for smoother movement on terminal
+
+void map::gotoxy(int x, int y) {
+    COORD coord;
+    coord.X = x;  // column
+    coord.Y = y;  // row
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+
+void map::hideCursor() {
+    HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_CURSOR_INFO info;
+    info.dwSize = 100;
+    info.bVisible = FALSE;
+    SetConsoleCursorInfo(consoleHandle, &info);
+}
+
+// map class functions start from here
 map::map(int row, int col) {
     row_size = row;
     col_size = col;
@@ -64,7 +82,7 @@ void map::setCoins() {
             randomX = rand() % row_size;
             randomY = rand() % col_size;
         } while (box[randomX][randomY] != ' ');
-        box[randomX][randomY] = 'o';
+        box[randomX][randomY] = 'C';
     }
 }
 
@@ -81,76 +99,127 @@ void map::setHurdles() {
     }
 }
 
-void map::setLion() {
+void map::setLife() {
     int randomX, randomY;
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 2; i++)
     {
         do
         {
             randomX = rand() % row_size;
             randomY = rand() % col_size;
         } while (box[randomX][randomY] != ' ');
-        box[randomX][randomY] = 'H';
+        box[randomX][randomY] = 'L';
     }
 }
-
-void map::setSword() {
-    int randomX, randomY;
-    for (int i = 0; i < 3; i++)
-    {
-        do
-        {
-            randomX = rand() % row_size;
-            randomY = rand() % col_size;
-        } while (box[randomX][randomY] != ' ');
-        box[randomX][randomY] = 'H';
-    }
-}
-
 bool map::move(char x) {
-    switch (x)
-    {
-    case 'w': {
-        if (box[playerX-1][playerY]==' ')
-        {
+    switch (x) {
+    case 'w': case 'W': {
+        if (box[playerX - 1][playerY] == ' ') {
+            box[playerX][playerY] = ' ';
             box[playerX - 1][playerY] = 'P';
+            playerX = playerX - 1;
             return true;
         }
-        else {
-            return false;
+        else if (box[playerX - 1][playerY] == 'H' || box[playerX - 1][playerY] == '|' || box[playerX - 1][playerY] == '=') {
+            reduceLife();
         }
-    }
-    case 's': {
-        if (box[playerX + 1][playerY] == ' ')
-        {
-            box[playerX + 1][playerY] = 'P';
+        else if (box[playerX - 1][playerY] == 'C') {
+            box[playerX][playerY] = ' ';
+            box[playerX - 1][playerY] = 'P';
+            playerX = playerX - 1;
+            updateScore();
             return true;
         }
-        else {
-            return false;
-        }
-    }
-    case 'd': {
-        if (box[playerX][playerY+1] == ' ')
-        {
-            box[playerX][playerY+1] = 'P';
+        else if (box[playerX - 1][playerY] == 'L') {
+            box[playerX][playerY] = ' ';
+            box[playerX - 1][playerY] = 'P';
+            playerX = playerX - 1;
+            increaseLife();
             return true;
         }
-        else {
-            return false;
-        }
-    }
-    case 'a': {
-        if (box[playerX][playerY-1] == ' ')
-        {
-            box[playerX][playerY-1] = 'P';
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-    default:
         break;
     }
+
+    case 's': case 'S': {
+        if (box[playerX + 1][playerY] == ' ') {
+            box[playerX][playerY] = ' ';
+            box[playerX + 1][playerY] = 'P';
+            playerX = playerX + 1;
+            return true;
+        }
+        else if (box[playerX + 1][playerY] == 'H' || box[playerX + 1][playerY] == '|' || box[playerX + 1][playerY] == '=') {
+            reduceLife();
+        }
+        else if (box[playerX + 1][playerY] == 'C') {
+            box[playerX][playerY] = ' ';
+            box[playerX + 1][playerY] = 'P';
+            playerX = playerX + 1;
+            updateScore();
+            return true;
+        }
+        else if (box[playerX + 1][playerY] == 'L') {
+            box[playerX][playerY] = ' ';
+            box[playerX + 1][playerY] = 'P';
+            playerX = playerX + 1;
+            increaseLife();
+            return true;
+        }
+        break;
+    }
+
+    case 'd': case 'D': {
+        if (box[playerX][playerY + 1] == ' ') {
+            box[playerX][playerY] = ' ';
+            box[playerX][playerY + 1] = 'P';
+            playerY = playerY + 1;
+            return true;
+        }
+        else if (box[playerX][playerY + 1] == 'H' || box[playerX][playerY + 1] == '|' || box[playerX][playerY + 1] == '=') {
+            reduceLife();
+        }
+        else if (box[playerX][playerY + 1] == 'C') {
+            box[playerX][playerY] = ' ';
+            box[playerX][playerY + 1] = 'P';
+            playerY = playerY + 1;
+            updateScore();
+            return true;
+        }
+        else if (box[playerX][playerY + 1] == 'L') {
+            box[playerX][playerY] = ' ';
+            box[playerX][playerY + 1] = 'P';
+            playerY = playerY + 1;
+            increaseLife();
+            return true;
+        }
+        break;
+    }
+
+    case 'a': case 'A': {
+        if (box[playerX][playerY - 1] == ' ') {
+            box[playerX][playerY] = ' ';
+            box[playerX][playerY - 1] = 'P';
+            playerY = playerY - 1;
+            return true;
+        }
+        else if (box[playerX][playerY - 1] == 'H' || box[playerX][playerY - 1] == '|' || box[playerX][playerY - 1] == '=') {
+            reduceLife();
+        }
+        else if (box[playerX][playerY - 1] == 'C') {
+            box[playerX][playerY] = ' ';
+            box[playerX][playerY - 1] = 'P';
+            playerY = playerY - 1;
+            updateScore();
+            return true;
+        }
+        else if (box[playerX][playerY - 1] == 'L') {
+            box[playerX][playerY] = ' ';
+            box[playerX][playerY - 1] = 'P';
+            playerY = playerY - 1;
+            increaseLife();
+            return true;
+        }
+        break;
+    }
+    }
+    return false;
 }
