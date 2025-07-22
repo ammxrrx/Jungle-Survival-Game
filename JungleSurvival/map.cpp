@@ -2,7 +2,6 @@
 #include "utils.h"
 
 //shit aah functions for smoother movement on terminal
-
 void map::gotoxy(int x, int y) {
     COORD coord;
     coord.X = x;  // column
@@ -17,7 +16,6 @@ void map::hideCursor() {
     info.bVisible = FALSE;
     SetConsoleCursorInfo(consoleHandle, &info);
 }
-
 
 // map class functions start from here
 map::map(int row, int col) {
@@ -71,7 +69,6 @@ void map::printBox() {
 
     setColor(0x0F); 
 }
-
 
 void map:: setPlayer(){
     int randomX, randomY;

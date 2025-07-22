@@ -16,6 +16,7 @@ void player::printScore() {
 	cout << "Score: " << score << endl;
 	setColor(0x0F);
 }
+
 void player::printLives() {
 	setColor(0x04);
 	cout << "Lives left: " << lives << endl;
@@ -32,12 +33,15 @@ bool player::checkLives() {
 		return false;
 	}
 }
+
 void player::reduceLife() {
 	lives--;
 }
+
 void player::increaseLife() {
 	lives++;
 }
+
 void player::updateScore() {
 	score += 5;
 }

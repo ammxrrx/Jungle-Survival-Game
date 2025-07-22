@@ -8,6 +8,7 @@
 #include <iomanip>
 //#include <SFML/Graphics.hpp>
 using namespace std;
+//using namespace sf;
 
 class menu {
 public:

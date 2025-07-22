@@ -37,6 +37,7 @@ void menu::credits() {
     setColor(0x07);
     _getch();
 }
+
 void menu::displayTitle()
 {
     setColor(0x04);
@@ -87,7 +88,6 @@ void menu::displayHelp()
 
     _getch();
 }
-
 
 void menu::displayMenu()
 {
