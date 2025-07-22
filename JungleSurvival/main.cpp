@@ -1,4 +1,5 @@
 #include "JungleSurvival.h"
+#include "utils.h"
 
 int main() {
 	game g1;

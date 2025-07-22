@@ -7,6 +7,16 @@
 #include <cstdlib>   
 using namespace std;
 
+class menu {
+public:
+    menu();
+    void credits();
+    void displayTitle();
+    void displayHelp();
+    void displayMenu();
+    void gameOver();
+};
+
 class player {
 public:
     int score;
@@ -42,6 +52,7 @@ public:
 class game {
 public:
     map m1;
+    menu me;
     player p1;
     game();
     void run();

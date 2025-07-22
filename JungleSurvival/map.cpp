@@ -1,4 +1,5 @@
 #include "JungleSurvival.h"
+#include "utils.h"
 
 //shit aah functions for smoother movement on terminal
 
@@ -111,6 +112,7 @@ void map::setLife() {
         box[randomX][randomY] = 'L';
     }
 }
+
 bool map::move(char x,player &obj) {
     switch (x) {
     case 'w': case 'W': {
@@ -228,15 +230,16 @@ bool map::move(char x,player &obj) {
     return false;
 }
 
-//bool map::gameEnd() {
-//    for (int i = 0; i < row_size; i++)
-//    {
-//        for (int j = 0; j < col_size; j++)
-//        {
-//            if (box[i][j]==)
-//            {
-//
-//            }
-//        }
-//    }
-//}
+bool map::gameEnd() {
+    for (int i = 0; i < row_size; i++)
+    {
+        for (int j = 0; j < col_size; j++)
+        {
+            if (box[i][j]=='C')
+            {
+                return false;
+            }
+        }
+    }
+    return true;
+}

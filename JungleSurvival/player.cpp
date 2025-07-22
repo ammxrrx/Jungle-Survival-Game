@@ -1,4 +1,5 @@
 #include "JungleSurvival.h"
+#include "utils.h"
 
 player::player(){
 	lives = 3;

@@ -1,4 +1,5 @@
 #include "JungleSurvival.h"
+#include "utils.h"
 
 game::game(){
 	m1.setCoins();
@@ -8,6 +9,9 @@ game::game(){
 }
 
 void game::run() {
+	me.displayTitle();
+	me.displayMenu();
+	system("cls");
 	m1.hideCursor();
 	m1.gotoxy(0, 0);
 	m1.printBox();
@@ -15,6 +19,7 @@ void game::run() {
 	p1.printScore();
 	bool checkMove = false;
 	bool zindaHo = false;
+	bool end = false;
 	char w = ' ';
 	while (true)
 	{
@@ -27,13 +32,20 @@ void game::run() {
 			p1.printLives();
 			p1.printScore();
 			Sleep(50);
-			zindaHo = p1.checkLives();
+			zindaHo = p1.checkLives();		// to check if lives=0 game ends
 			if (zindaHo)
 			{
-				cout << "Game Over" << endl;
+				me.gameOver();
+				cout << "You lose!" << endl;
 				break;
 			}
-			
+			end = m1.gameEnd();		//to check if all the coins are eaten or wtv
+			if (end)
+			{
+				me.gameOver();
+				cout << "You won!" << endl;
+				break;
+			}
 		}
 	}
 }
