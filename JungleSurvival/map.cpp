@@ -111,7 +111,7 @@ void map::setLife() {
         box[randomX][randomY] = 'L';
     }
 }
-bool map::move(char x) {
+bool map::move(char x,player &obj) {
     switch (x) {
     case 'w': case 'W': {
         if (box[playerX - 1][playerY] == ' ') {
@@ -121,20 +121,21 @@ bool map::move(char x) {
             return true;
         }
         else if (box[playerX - 1][playerY] == 'H' || box[playerX - 1][playerY] == '|' || box[playerX - 1][playerY] == '=') {
-            reduceLife();
+            obj.reduceLife();
+            return true;    //returning true for now for all ifs (might need to change later)
         }
         else if (box[playerX - 1][playerY] == 'C') {
             box[playerX][playerY] = ' ';
             box[playerX - 1][playerY] = 'P';
             playerX = playerX - 1;
-            updateScore();
+            obj.updateScore();
             return true;
         }
         else if (box[playerX - 1][playerY] == 'L') {
             box[playerX][playerY] = ' ';
             box[playerX - 1][playerY] = 'P';
             playerX = playerX - 1;
-            increaseLife();
+            obj.increaseLife();
             return true;
         }
         break;
@@ -148,20 +149,21 @@ bool map::move(char x) {
             return true;
         }
         else if (box[playerX + 1][playerY] == 'H' || box[playerX + 1][playerY] == '|' || box[playerX + 1][playerY] == '=') {
-            reduceLife();
+            obj.reduceLife();
+            return true;    //returning true for now for all ifs (might need to change later)
         }
         else if (box[playerX + 1][playerY] == 'C') {
             box[playerX][playerY] = ' ';
             box[playerX + 1][playerY] = 'P';
             playerX = playerX + 1;
-            updateScore();
+            obj.updateScore();
             return true;
         }
         else if (box[playerX + 1][playerY] == 'L') {
             box[playerX][playerY] = ' ';
             box[playerX + 1][playerY] = 'P';
             playerX = playerX + 1;
-            increaseLife();
+            obj.increaseLife();
             return true;
         }
         break;
@@ -175,20 +177,21 @@ bool map::move(char x) {
             return true;
         }
         else if (box[playerX][playerY + 1] == 'H' || box[playerX][playerY + 1] == '|' || box[playerX][playerY + 1] == '=') {
-            reduceLife();
+            obj.reduceLife();
+            return true;    //returning true for now for all ifs (might need to change later)
         }
         else if (box[playerX][playerY + 1] == 'C') {
             box[playerX][playerY] = ' ';
             box[playerX][playerY + 1] = 'P';
             playerY = playerY + 1;
-            updateScore();
+            obj.updateScore();
             return true;
         }
         else if (box[playerX][playerY + 1] == 'L') {
             box[playerX][playerY] = ' ';
             box[playerX][playerY + 1] = 'P';
             playerY = playerY + 1;
-            increaseLife();
+            obj.increaseLife();
             return true;
         }
         break;
@@ -202,20 +205,21 @@ bool map::move(char x) {
             return true;
         }
         else if (box[playerX][playerY - 1] == 'H' || box[playerX][playerY - 1] == '|' || box[playerX][playerY - 1] == '=') {
-            reduceLife();
+            obj.reduceLife();
+            return true;    //returning true for now for all ifs (might need to change later)
         }
         else if (box[playerX][playerY - 1] == 'C') {
             box[playerX][playerY] = ' ';
             box[playerX][playerY - 1] = 'P';
             playerY = playerY - 1;
-            updateScore();
+            obj.updateScore();
             return true;
         }
         else if (box[playerX][playerY - 1] == 'L') {
             box[playerX][playerY] = ' ';
             box[playerX][playerY - 1] = 'P';
             playerY = playerY - 1;
-            increaseLife();
+            obj.increaseLife();
             return true;
         }
         break;
@@ -223,3 +227,16 @@ bool map::move(char x) {
     }
     return false;
 }
+
+//bool map::gameEnd() {
+//    for (int i = 0; i < row_size; i++)
+//    {
+//        for (int j = 0; j < col_size; j++)
+//        {
+//            if (box[i][j]==)
+//            {
+//
+//            }
+//        }
+//    }
+//}

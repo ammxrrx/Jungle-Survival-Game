@@ -14,11 +14,12 @@ void game::run() {
 	p1.printLives();
 	p1.printScore();
 	bool checkMove = false;
+	bool zindaHo = false;
 	char w = ' ';
 	while (true)
 	{
 		w=p1.Input();
-		checkMove = m1.move(w);
+		checkMove = m1.move(w,p1);
 		if (checkMove)
 		{
 			m1.gotoxy(0, 0);
@@ -26,6 +27,13 @@ void game::run() {
 			p1.printLives();
 			p1.printScore();
 			Sleep(50);
+			zindaHo = p1.checkLives();
+			if (zindaHo)
+			{
+				cout << "Game Over" << endl;
+				break;
+			}
+			
 		}
 	}
 }

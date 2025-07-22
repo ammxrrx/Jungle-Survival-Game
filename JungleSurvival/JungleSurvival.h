@@ -21,7 +21,7 @@ public:
     void updateScore();
 };
 
-class map:public player {
+class map{
 public:
     int row_size = 0, col_size = 0;
     char** box;
@@ -35,7 +35,8 @@ public:
     void setCoins();
     void setHurdles();
     void setLife();
-    bool move(char x);
+    bool move(char x,player &obj);
+    bool gameEnd();
 };
 
 class game {
