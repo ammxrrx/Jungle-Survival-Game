@@ -1,6 +1,6 @@
 #include "JungleSurvival.h"
 #include "utils.h"
-
+//test
 //shit aah functions for smoother movement on terminal
 void map::gotoxy(int x, int y) {
     COORD coord;
