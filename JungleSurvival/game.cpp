@@ -14,6 +14,7 @@ void game::run() {
 	system("cls");
 	m1.hideCursor();
 	m1.gotoxy(0, 0);
+	me.printTitleCentered();
 	m1.printBox();
 	p1.printLives();
 	p1.printScore();
@@ -28,6 +29,7 @@ void game::run() {
 		if (checkMove)
 		{
 			m1.gotoxy(0, 0);
+			me.printTitleCentered();
 			m1.printBox();
 			p1.printLives();
 			p1.printScore();

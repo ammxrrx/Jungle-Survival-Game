@@ -11,6 +11,19 @@ const int ESCAPE = 27;
 
 menu::menu() {}
 
+void menu::printTitleCentered() {
+    int consoleWidth = getConsoleWidth();
+    string title[] = {
+    "Jungle Mein Mangal"
+    };
+    setColor(0x02);
+    for (const string& line : title) {
+        int pad = (consoleWidth - line.length()) / 2;
+        cout << string(pad, ' ') << line << endl;
+    }
+    setColor(0x0F); 
+}
+
 void menu::credits() {
     system("cls");
     setColor(03);

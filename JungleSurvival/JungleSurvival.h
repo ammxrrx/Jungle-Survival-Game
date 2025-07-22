@@ -5,6 +5,8 @@
 #include <ctime>
 #include <conio.h>
 #include <cstdlib>   
+#include <iomanip>
+//#include <SFML/Graphics.hpp>
 using namespace std;
 
 class menu {
@@ -15,6 +17,7 @@ public:
     void displayHelp();
     void displayMenu();
     void gameOver();
+    void printTitleCentered();
 };
 
 class player {
@@ -24,7 +27,7 @@ public:
     player();
     char Input();
     void printScore();
-    void printLives();
+    void printLives();  
     bool checkLives();
     void reduceLife();
     void increaseLife();
@@ -36,7 +39,7 @@ public:
     int row_size = 0, col_size = 0;
     char** box;
     int playerX, playerY;
-    map(int row = 25, int col = 50);  
+    map(int row = 30, int col = 60);  
     ~map();
     void gotoxy(int x, int y);
     void hideCursor();

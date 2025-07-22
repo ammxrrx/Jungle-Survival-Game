@@ -18,6 +18,7 @@ void map::hideCursor() {
     SetConsoleCursorInfo(consoleHandle, &info);
 }
 
+
 // map class functions start from here
 map::map(int row, int col) {
     row_size = row;
@@ -54,13 +55,23 @@ map::~map() {
 }
 
 void map::printBox() {
+    int mapWidth = col_size;
+    int consoleWidth = getConsoleWidth();
+    int padding = (consoleWidth - mapWidth) / 2;
+
+    setColor(0x0B);
+
     for (int i = 0; i < row_size; i++) {
+        cout << string(padding, ' ');
         for (int j = 0; j < col_size; j++) {
             cout << box[i][j];
         }
         cout << endl;
     }
+
+    setColor(0x0F); 
 }
+
 
 void map:: setPlayer(){
     int randomX, randomY;

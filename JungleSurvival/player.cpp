@@ -12,11 +12,16 @@ char player:: Input() {
 }
 
 void player::printScore() {
+	setColor(0x04);
 	cout << "Score: " << score << endl;
+	setColor(0x0F);
 }
 void player::printLives() {
+	setColor(0x04);
 	cout << "Lives left: " << lives << endl;
+	setColor(0x0F);
 }
+
 bool player::checkLives() {
 	if (lives==0)
 	{
